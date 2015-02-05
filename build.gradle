@@ -1,0 +1,41 @@
+apply plugin: 'java'
+apply plugin: 'application' // Run as a command-line app.
+
+sourceCompatibility = 1.8
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+
+    test {
+        java {
+            srcDir 'test'
+        }
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+// Display unit test results on execution (if re-running use: gradle cleanTest test)
+test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+}
+
+// Usage: gradle -q run
+run {
+    // Run as a command-line app.
+	mainClassName = 'mars.rover.CommandLineInput'
+    standardInput = System.in // Allow user input
+}
